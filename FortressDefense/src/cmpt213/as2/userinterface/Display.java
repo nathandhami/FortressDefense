@@ -2,11 +2,36 @@ package cmpt213.as2.userinterface;
 
 import cmpt213.as2.gamedesign.Castle;
 
+import cmpt213.as2.gamedesign.Tank;
+
 public class Display {
+	
+	public static void gameWon(){
+		System.out.println("Congratulations You Won!");
+	}
+	
+	public static void displayStartPoints(Tank tank) {
+		System.out.println("Starting Row: " + tank.getStartingRow() + " Col: "
+				+ tank.getStartingCol());
+
+	}
 	
 	public static void displayHealth(int strength){
 		
 		System.out.println("Fortress Health: " + strength);
+	}
+	
+	public static void displayHitOrMiss(boolean tankFound){
+		if(tankFound == true){
+			System.out.println("HIT!");
+		}
+		else{
+			System.out.println("MISS!");
+		}
+	}
+	
+	public static void displayTankDamageDone(Tank tank){
+		System.out.println("You were shot for: " + tank.fireWeapon());
 	}
 	
 	public static void displayMap(int map[][]){

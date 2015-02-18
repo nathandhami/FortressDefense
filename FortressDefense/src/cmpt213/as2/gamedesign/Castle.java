@@ -13,8 +13,9 @@ public class Castle {
 		return castle_strength;
 	}
 	
-	public void decStrength(){
+	public void decStrength(int damage){
 		
+		castle_strength -= damage;
 	}
 	
 

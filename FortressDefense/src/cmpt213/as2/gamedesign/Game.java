@@ -9,7 +9,7 @@ public class Game {
 
 	static int userX;
 	static int userY;
-	static int asciiStart = 16;
+	static int asciiStart = 17;
 	static boolean game_state;
 	static boolean is_error;
 
@@ -23,15 +23,25 @@ public class Game {
 		}
 		
 		Castle mainCastle = new Castle();
+		
+		
+		Cell mapTracker = new Cell();
+		
+		
 		Tank[] tanks = new Tank[5];
 		for(int i=0; i<5; i++){
 			tanks[i] = new Tank();
 		}
 		
-		Cell mapTracker = new Cell();
+		// assign locations
+		Display.displayStartPoints(tanks[0]);
+		Display.displayStartPoints(tanks[1]);
+		Display.displayStartPoints(tanks[2]);
+		Display.displayStartPoints(tanks[3]);
+		Display.displayStartPoints(tanks[4]);
+		mapTracker.assignLocation(tanks[0].getLocation());
 		
 		while(game_state){
-			
 			Display.displayMap(mapTracker.getMap());
 			Display.displayHealth(mainCastle.getStrength());
 
@@ -41,10 +51,55 @@ public class Game {
 			System.out.println();
 			breakInput(userChoice);
 			
+			if(mapTracker.doesTankExist(userX, userY) == true){
+				boolean exist = true;
+				Display.displayHitOrMiss(exist);;
+				tanks[0].loseHealth();
+				for(int i =0; i < 5; i ++){
+					if(tanks[i].is_Empty()){
+						
+					}
+					else{
+						mainCastle.decStrength(tanks[i].fireWeapon());
+						Display.displayTankDamageDone(tanks[i]);
+					}
+				}
+				mapTracker.updateMap(userX, userY);
+			}
+			else{
+				Display.displayHitOrMiss(false);;
+				for(int i =0; i < 5; i ++){
+					if(tanks[i].is_Empty()){
+						
+					}
+					else{
+						mainCastle.decStrength(tanks[i].fireWeapon());
+						Display.displayTankDamageDone(tanks[i]);
+					}
+				}
+			}
+			
+			
+			// Victory
+//			for(int i =0; i < 1; i++){
+//				
+//				if(tanks[i].is_Empty() == true){
+//					game_state = false;
+//				}
+//				else{
+//					game_state = true;
+//				}
+//			}
+//			
+//			if(game_state == false){
+//			
+//				Display.displayMap(mapTracker.getMap());
+//				Display.displayHealth(mainCastle.getStrength());
+//				Display.gameWon();
+//			}
+			
+			
 		}
-
-	
-
 	}
 
 	public static void breakInput(String userChoice) {
