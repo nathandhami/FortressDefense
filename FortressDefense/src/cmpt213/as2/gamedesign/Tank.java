@@ -10,5 +10,11 @@ public class Tank {
 		
 		
 	}
+	
+	// returns true if all tanks destroyed
+	public boolean is_Empty(){
+		
+		return false;
+	}
 
 }
