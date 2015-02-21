@@ -1,58 +1,45 @@
 package cmpt213.as2.gamedesign;
 
-import java.util.Random;
+import sun.org.mozilla.javascript.internal.ast.Assignment;
 
 public class Tank {
 	
 	private int tankHealth;
 	private int firePower;
-	private int startIndexRow;
-	private int startIndexCol;
 	private int[][] location;
 
 	
 	// Randomize location of the tank
 	// NOT DONE
 	public Tank(){
-		 Random randomGenerator = new Random();
-		 startIndexRow = randomGenerator.nextInt(9);
-		 startIndexCol = randomGenerator.nextInt(9);
+		 
 		location = new int[10][10];
-		location[startIndexRow][startIndexCol] =1;
+		
 		tankHealth = 4;
 		firePower = 20;
 		
 		
 	}
 	
-	public int getStartingRow(){
-		return startIndexRow;
-	}
 	
-	public int getStartingCol(){
-		return startIndexCol;
-	}
-	
-	
-	public int loseHealth(){
-		tankHealth--;
+	public void loseHealth(){
+		this.tankHealth--;
 
-		switch(tankHealth){
+		switch(this.tankHealth){
 		case 3: 
-			firePower =5;
+			this.firePower = 5;
 		break;
 		case 2:
-			firePower = 3;
+			this.firePower = 3;
 			break;
 		case 1:
-			firePower = 1;
+			this.firePower = 1;
 			break;
 			
 		default:
-			firePower =0;
+			this.firePower = 0;
 		}
 		
-		return tankHealth;
 	}
 	
 	public int[][] getLocation(){
@@ -68,6 +55,15 @@ public class Tank {
 	
 	public int fireWeapon(){
 		return firePower;
+	}
+	
+	public boolean whichTankExist(int x,int y){
+		
+		if(this.location[x][y] == 1){
+			return true;
+		}
+		return false;
+		
 	}
 	
 	

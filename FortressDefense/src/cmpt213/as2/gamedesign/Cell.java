@@ -1,10 +1,12 @@
 package cmpt213.as2.gamedesign;
 
+import java.util.Random;
+
 public class Cell {
 	
 	private int map[][];
 	private int foggyMap[][];
-	private boolean tankLocation[][];
+	
 	private boolean occupiedCell[][];
 	private final int UP = 3;
 	private final int LEFT = 2;
@@ -21,50 +23,139 @@ public class Cell {
 				map[i][j]=0;			//0 for '.'
 				foggyMap[i][j]=-1;  	//1 for 'X'
 										//-1 for '~'.
-				occupiedCell = new boolean[10][10];
+				
 			}
 		}
 	}
 	
 	
-	void assignLocation(int tank_location[][]){
-		for(int i =0; i < 10;i++){
-			for(int j =0; j < 10; j++){
-				if(tank_location[i][j] == 1){
-					map[i][j] = 1;
-					occupiedCell[i][j] = true;
-				}
-			}
-		}
+	public void assignLocation(int tank_location[][]){
+		
+		 Random randomGenerator = new Random();
+		 int startIndexRow = randomGenerator.nextInt(8) + 1;
+		 int startIndexCol = randomGenerator.nextInt(8) + 1;
+		 tank_location[startIndexRow][startIndexCol] = 1;
+		 map[startIndexRow][startIndexCol] = 1;
+		 int numDone=1;
+		 int numLeft=3;
+		 int index = 0;
+		 int next= 0; 
+		 boolean alreadyTaken = false;
+		 
+		 for(int i=0; i<numLeft; i++){
+			 
+			 for(int j=0; j<numDone;j++){
+				 index = randomGenerator.nextInt(4);
+				 alreadyTaken=false;
+				 
+				 if(index == DOWN && !alreadyTaken){
+					 if(map[startIndexRow][startIndexCol+1]==1){
+						 index = (index + 1) % 3;
+						 alreadyTaken = true;
+						 j--;
+						 
+					 }
+					 
+					 if(!alreadyTaken){
+						 if(j<=0){
+							 next=startIndexCol+1; 
+						 }
+						 else next=next+1;
+						 
+						 map[startIndexRow][next] = 1;
+						 tank_location[startIndexRow][next] = 1; 
+					 }
+					 
+				 }
+				 else if(index == LEFT && !alreadyTaken){
+					 if(map[startIndexRow-1][startIndexCol]==1){
+						 index = (index + 1) % 3;
+						 alreadyTaken = true;
+						 j--;
+						 
+					 }
+					 if(!alreadyTaken){
+						 
+						 if(j<=0){
+							 next=startIndexRow-1; 
+						 }
+						 else next=next+1;
+						 
+						 map[next][startIndexCol] = 1;
+						 tank_location[next][startIndexCol] = 1;
+					 }
+					 
+				 }
+				 else if(index == RIGHT && !alreadyTaken){
+					 if(map[startIndexRow+1][startIndexCol]==1){
+						 index = (index + 1) % 3;
+						 alreadyTaken = true;
+						 j--;
+						 
+					 }
+					 
+					 if(!alreadyTaken){
+						 if(j<=0){
+							 next=startIndexRow+1; 
+						 }
+						 else next=next+1;
+						 
+						 map[next][startIndexCol] = 1;
+						 tank_location[next][startIndexCol] = 1;
+					 }
+					 
+				 }
+				 else if(index == UP && !alreadyTaken){
+					 if(map[startIndexRow][startIndexCol-1]==1){
+						 index = (index + 1) % 3;
+						 alreadyTaken = true;
+						 j--;
+
+					 }
+					 
+					 if(!alreadyTaken){
+						
+						 if(j<=0){
+							 next=startIndexCol-1; 
+						 }
+						 else next=next+1;
+						 
+						 map[startIndexRow][next] = 1;
+						 tank_location[startIndexRow][next] = 1;
+					 }
+					 
+				 }
+			 }
+		 }
+
+		 
 
 	}
 	
 	
 	// Game in progress map
-	int[][] getMap(){
+	public int[][] getMap(){
 		return foggyMap;
 	}
 	
 	// Game end map reveal
-	int[][] getFullMap(){
+	public int[][] getFullMap(){
 		return map;
 	}
 	
-	boolean doesTankExist(int x,int y){
+	public boolean doesTankExist(int x,int y){
 		
 		if(map[x][y] == 1){
 			foggyMap[x][y] = 1;
 			return true;
 		}
+		foggyMap[x][y] = 0;
+		return false;
 		
-		else{
-			foggyMap[x][y] = 0;
-			return false;
-		}
 	}
 	
 	
-	void updateMap(int x , int y){
+	public void updateMap(int x , int y){
 		
 //		foggyMap[x][y] = 1;
 		

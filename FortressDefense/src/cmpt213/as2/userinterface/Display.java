@@ -10,10 +10,8 @@ public class Display {
 		System.out.println("Congratulations You Won!");
 	}
 	
-	public static void displayStartPoints(Tank tank) {
-		System.out.println("Starting Row: " + tank.getStartingRow() + " Col: "
-				+ tank.getStartingCol());
-
+	public static void gameLost(){
+		System.out.println("You Lose! Your castle has been destroyed.");
 	}
 	
 	public static void displayHealth(int strength){
@@ -32,6 +30,10 @@ public class Display {
 	
 	public static void displayTankDamageDone(Tank tank){
 		System.out.println("You were shot for: " + tank.fireWeapon());
+	}
+	
+	public static void displayError(){
+		System.out.println("Invalid move! ");
 	}
 	
 	public static void displayMap(int map[][]){
