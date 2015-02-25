@@ -1,6 +1,9 @@
 package cmpt213.as2.gamedesign;
 
-import sun.org.mozilla.javascript.internal.ast.Assignment;
+/*Tank is a class for every tank itself. 
+ * Its objects will call 'Cell' class to randomly assign location.
+ * Keeps track of tank's cell locations and health.*/
+
 
 public class Tank {
 	

@@ -1,11 +1,10 @@
 package cmpt213.as2.gamedesign;
 
 import java.util.*;
-
-import com.sun.xml.internal.bind.util.Which;
-
 import cmpt213.as2.userinterface.*;
 
+/*Controls game logic.
+ * It is responsible for interacting with every other class manage it as game goes on.*/
 
 public class Game {
 
@@ -79,7 +78,7 @@ public class Game {
 						Display.displayTankDamageDone(tanks[i]);
 					}
 				}
-				mapTracker.updateMap(userX, userY);
+				
 			}
 			else{
 				Display.displayHitOrMiss(false);;
@@ -100,9 +99,6 @@ public class Game {
 				
 				if(tanks[i].is_Empty() == true){
 					game_state = false;
-					Display.displayHealth(mainCastle.getStrength());
-					Display.gameWon();
-					Display.displayMap(mapTracker.getFullMap());
 				}
 				else{
 					game_state = true;
@@ -110,13 +106,27 @@ public class Game {
 				}
 			}
 			
+			// Lost
 			if(mainCastle.getStrength()<0){
 				game_state=false;
-				Display.gameLost();
-				Display.displayMap(mapTracker.getFullMap());
+				
 			}
 			
-		
+		// Game Over
+		}
+		if(!game_state){
+			
+			if(mainCastle.getStrength()<0){
+				Display.displayMap(mapTracker.getFullMap());
+				Display.gameLost();
+				
+			}
+			else{
+				Display.displayHealth(mainCastle.getStrength());
+				Display.displayMap(mapTracker.getFullMap());
+				Display.gameWon();
+				
+			}
 		}
 	}
 
@@ -128,14 +138,13 @@ public class Game {
 		else{
 			userX = Character.toUpperCase(userChoice.charAt(0)) - asciiStart;
 			userX = Character.getNumericValue(userX);
-			System.out.println(userX);
 			userY = Character.getNumericValue((userChoice.charAt(1)));	
 			is_error = false;
+			
+			if(userX<0 || userX>=10 ) is_error = true;
+			else if(userY<0 || userY>=10) is_error = true;
+			else is_error = false;
 		}
-		
-		if(userX<0 || userX>=10 ) is_error = true;
-		else if(userY<0 || userY>=10) is_error = true;
-		else is_error = false;
 		
 		if(is_error){
 			Display.displayError();

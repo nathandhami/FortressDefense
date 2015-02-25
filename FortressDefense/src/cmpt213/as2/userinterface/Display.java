@@ -1,8 +1,8 @@
 package cmpt213.as2.userinterface;
 
-import cmpt213.as2.gamedesign.Castle;
-
 import cmpt213.as2.gamedesign.Tank;
+
+/*This is the UI class designed to display everything to the user. */
 
 public class Display {
 	

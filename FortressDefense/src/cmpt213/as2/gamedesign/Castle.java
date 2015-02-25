@@ -1,5 +1,7 @@
 package cmpt213.as2.gamedesign;
 
+/*Castle only stores the strength and decreases when tanks fire at it. */
+
 public class Castle {
 	
 	private int castle_strength;
