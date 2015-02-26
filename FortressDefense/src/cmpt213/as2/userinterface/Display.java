@@ -39,8 +39,8 @@ public class Display {
 	public static void displayMap(int map[][]){
 		
 		char content;
-		char letter;
-		
+	
+		System.out.println("\nGame Board: ");
 		for(int i=1; i<=10; i++){
 			
 			System.out.print("\t" + i);
@@ -55,7 +55,8 @@ public class Display {
 				
 				if(map[i][j]==0) content ='.';
 				else if(map[i][j]==1) content ='X';
-				else content = '~';
+				else if(map[i][j] ==-1) content = '~';
+				else content = ' ';
 				
 				System.out.print("\t" + content);
 			}

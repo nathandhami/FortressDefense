@@ -4,80 +4,61 @@ package cmpt213.as2.gamedesign;
  * Its objects will call 'Cell' class to randomly assign location.
  * Keeps track of tank's cell locations and health.*/
 
-
 public class Tank {
-	
+
 	private int tankHealth;
 	private int firePower;
 	private int[][] location;
 
-	
-	// Randomize location of the tank
-	// NOT DONE
-	public Tank(){
-		 
+	public Tank() {
 		location = new int[10][10];
-		
 		tankHealth = 4;
 		firePower = 20;
-		
-		
 	}
-	
-	
-	public void loseHealth(){
+
+	public void loseHealth() {
 		this.tankHealth--;
 
-		switch(this.tankHealth){
-		case 3: 
+		switch (this.tankHealth) {
+		case 3:
 			this.firePower = 5;
-		break;
+			break;
 		case 2:
 			this.firePower = 3;
 			break;
 		case 1:
 			this.firePower = 1;
 			break;
-			
+
 		default:
 			this.firePower = 0;
 		}
-		
-	}
-	
-	public int[][] getLocation(){
 
+	}
+
+	public int[][] getLocation() {
 		return location;
 	}
-	
-	public int[][] setLocation(int x, int y){
-		location[x][y]=1;
-		return location;
-		
-	}
-	
-	public int fireWeapon(){
+
+	public int fireWeapon() {
 		return firePower;
 	}
-	
-	public boolean whichTankExist(int x,int y){
-		
-		if(this.location[x][y] == 1){
+
+	public boolean whichTankExist(int x, int y) {
+
+		if (this.location[x][y] == 1) {
 			return true;
 		}
 		return false;
-		
+
 	}
-	
-	
-	// returns true if all tanks destroyed
-	public boolean is_Empty(){
-		
-		if(tankHealth ==0){
+
+	public boolean is_Empty() {
+
+		if (tankHealth == 0) {
 			return true;
-		}
-		else{
-		return false;
+		} else {
+			return false;
 		}
 	}
 
