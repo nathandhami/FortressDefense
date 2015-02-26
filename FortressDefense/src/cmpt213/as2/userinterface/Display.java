@@ -41,7 +41,7 @@ public class Display {
 		char content;
 		char letter;
 		
-		for(int i=0; i<10; i++){
+		for(int i=1; i<=10; i++){
 			
 			System.out.print("\t" + i);
 		}

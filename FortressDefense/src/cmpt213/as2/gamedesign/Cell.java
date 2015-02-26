@@ -49,20 +49,25 @@ public class Cell {
 		 int numDone=1;
 		 int numLeft=3;
 		 int index = 0;
+		 int startIndex = Integer.MAX_VALUE;
 		 
 		 int nextRow = startIndexRow; 
 		 int nextColumn = startIndexCol; 
 		 int whichStartingCell = 0;
 		 boolean alreadyTaken = false;
+		 boolean cellChanged = false;
 		 
 		 
 		 for(int i=0; i<numLeft; i++){
 			 
 			 whichStartingCell = randomGenerator.nextInt(numDone);
 			 alreadyTaken = false;
+			 cellChanged = false;
+			 startIndex = Integer.MAX_VALUE;
 			 
 			 for(int j=0; j<numDone;j++){
 				 
+				 cellChanged = false;
 				 if(j != whichStartingCell);
 				 
 				 else{
@@ -71,7 +76,22 @@ public class Cell {
 						 index = randomGenerator.nextInt(4); 
 					 }
 					 
-					 alreadyTaken=false;
+					 // when no cell around it is available. 
+					 if(startIndex == index){
+						 j=0;
+						 whichStartingCell = (whichStartingCell+1) % numDone;
+						 System.out.println("YES! I was here.");
+						 cellChanged = true;
+						 alreadyTaken = true;
+						 
+					 }
+					 if(!alreadyTaken) startIndex = index;
+					 
+					 if(!cellChanged){
+						 alreadyTaken=false;
+					 }
+					 
+					 
 					 
 					 if(index == RIGHT && !alreadyTaken){
 					
@@ -199,9 +219,13 @@ public class Cell {
 	
 	public boolean doesTankExist(int x, int y){
 		
-		if(map[x][y] == 1){
+	
+		if(map[x][y] == 1 && foggyMap[x][y] != 1){
 			foggyMap[x][y]=1;
 			return true;
+		}
+		else if(map[x][y] == 1 && foggyMap[x][y] == 1){
+			return false;
 		}
 		foggyMap[x][y]=0;
 		return false;

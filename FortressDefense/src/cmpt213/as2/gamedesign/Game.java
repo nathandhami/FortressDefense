@@ -132,13 +132,19 @@ public class Game {
 
 	public static void breakInput(String userChoice) {
 		
-		if(userChoice.length()!=2){
+		if(userChoice.length()!=2 && userChoice.length()!=3){
 			is_error = true;
 		}
 		else{
 			userX = Character.toUpperCase(userChoice.charAt(0)) - asciiStart;
 			userX = Character.getNumericValue(userX);
-			userY = Character.getNumericValue((userChoice.charAt(1)));	
+			if(userChoice.length()==3){
+				userY = Character.getNumericValue((userChoice.charAt(1)+userChoice.charAt(2))) - 1;	
+			}
+			else{
+				userY = Character.getNumericValue((userChoice.charAt(1))) - 1;	
+			}
+			System.out.println(userY);
 			is_error = false;
 			
 			if(userX<0 || userX>=10 ) is_error = true;
